@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.conf import settings
 
 from .models import User
-
+print("Test")
 class SignUpView(View):
     def post(self, request):
         try:

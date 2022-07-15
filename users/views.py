@@ -51,6 +51,18 @@ class SignInView(View):
                 return JsonResponse({"message":"잘못된 비밀번호 입니다."}, status=400)
 
             access_token = jwt.encode({"id":user.id}, settings.SECRET_KEY, settings.ALGORITHM)
+
+            # result = jwt.decode(access_token, settings.SECRET_KEY, settings.ALGORITHM )["id"]
+            # print(result)
+
+            user = User.objects.get(id=jwt.decode(access_token, settings.SECRET_KEY, settings.ALGORITHM )["id"])
+            print(user)
+            print(user.id)
+            print(user.email)
+
+            print(request.headers)
+            print(request.body)
+
             return JsonResponse(
                 {"message":"로그인에 성공하였습니다.",
                 "access_token": access_token},
